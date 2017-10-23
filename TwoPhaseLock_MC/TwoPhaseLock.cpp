@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <climits>
 #include "2PL.hpp"		//2PL을 구현하기 위한 노드 구조체와, 레코드 구조체가 있다. 락 테이블 같은 경우는 별도로 잡지 않고
 //레코드 구조체에 공간을 할당하여 구현하였다. 그 외에 여러 전역 변수 또한 정의되어 있다.
 
@@ -158,6 +159,7 @@ void * ThreadFunc(void * arg){
 	long tid = (long)arg;
 	int l, j, k, numL, numJ, numK;
 	thrRW[tid]->tid = tid;
+	ofstream commitStream("thread" + to_string(tid+1) + ".txt");
 	while(1){
 		//임의의 record를 선택하기 위해 먼저 랜덤으로 사용할 record의 index를 구한다.
 		// 모든 index는 무조건 전 범위내에서 무작위로 뽑히며 만약 같은 숫자가 나올 경우 다시 뽑느다.
@@ -202,6 +204,7 @@ void * ThreadFunc(void * arg){
 		writeLock(k, tid);
 		if(deadLockExist) {
 			deadLockExist = false;
+			recVec[j]->content -= (numL + 1);
 			pthread_mutex_unlock(&globalMtx);
 			continue;
 		}
@@ -217,12 +220,12 @@ void * ThreadFunc(void * arg){
 		commit_id++;
 		//커밋 아이디가 E를 초과했을 경우 Undo 후에 while문을 탈출하고 락을 해제한다.
 		if (commit_id > E){
-			recVec[j]->content -= numL + 1;
-			recVec[k]->content -= numL;
+			recVec[j]->content -= (numL + 1);
+			recVec[k]->content += numL;
 			break;
 		}
 		//아닐 경우 정상적으로 thread#.txt파일에 commit log를 append한다.
-		ofstream commitStream("thread" + to_string(tid) + ".txt", ios::app);
+		ofstream commitStream("thread" + to_string(tid+1) + ".txt", ios::app);
 		if(commitStream.is_open()) commitStream << commit_id << ' ' << l << ' ' << j << ' ' << k << ' ' << numL << ' ' << numJ << ' ' << numK << endl;
 		pthread_mutex_unlock(&globalMtx);
 	}

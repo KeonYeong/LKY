@@ -1,6 +1,7 @@
 #ifndef _2PL_H
 #define _2PL_H
 #include <vector>
+#include <set>
 using namespace std;
 // 두가지 구조체가 만들어지는데 하나는 record의 구조체이고 또 하나는 thread의 구조체이다, 여기서 thread의 구조체가 특히 독특한데, 정확히 thread의 개수만큼 할당되어서 나중에 큐, 리스트에 추가 될 때 해당 thread의 이 구조체가 추가되게 된다.
 struct rwQ{
@@ -24,7 +25,7 @@ struct Record{
 	bool ownerIsRead;	// 현 record에 lock을 걸고 있는 thread가 무슨 lock을 걸었는 지 확인해 주는 변수
 	int readShares;		// 현 record에 만약 여러 개의 read-lock이 걸려 있을 경우 몇개의 read-lock이 현재 걸려 있는 지 확인해주는 변수
 	int rid;			// record의 id
-	int content;		// record가 담고 있는 실질적인 내용
+	long long content;		// record가 담고 있는 실질적인 내용
 	bool emptyRec;		// 현재 record에 lock을 걸고 있는 thread가 있는 지 없는 지
 	Record(){ 	// 생성자 !, 몇몇 변수들을 초기화시킨다.
 		emptyRec = true;
@@ -40,4 +41,11 @@ int commit_id = 0;
 int R, E;			// Record의 개수와, 실행 횟수 제한을 담고 있는 전역 변수
 bool deadLockExist = false;		// deadlock 발생 시 그 결과를 알려 주기 위한 전역 boolean 변수
 pthread_mutex_t globalMtx = PTHREAD_MUTEX_INITIALIZER;	// 몇 천개 몇만개의 thread가 생겨도 다 막아내어  정지된 state를 보게 해주는 global lock!!
+
+void readLock(int rid, int tid);
+void writeLock(int rid, int tid);
+void readUnLock(int rid, int tid);
+void writeUnLock(int rid, int tid);
+void deadLockHandler(int rid, int tid);
+void deadLockChecking(int rid, int tid);
 #endif
