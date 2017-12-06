@@ -1,0 +1,1446 @@
+9
+0
+0
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 -1
+1 -1
+2 -1
+3 -1
+1
+1
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+lw 0 1 6
+1
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 -1
+1 -1
+2 -1
+3 -1
+2
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+lw 1 2 2
+2
+lw 0 1 6
+1
+0
+0
+6
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 1
+1 -1
+2 -1
+3 -1
+3
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+lw 1 2 2
+3
+noop 0 0 0
+2
+0
+0
+2
+lw 0 1 6
+7
+6
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 -1
+1 1
+2 -1
+3 -1
+4
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+3
+lw 1 2 2
+3
+0
+0
+2
+noop 0 0 0
+4
+2
+0
+lw 0 1 6
+5
+noop 0 0 0
+0
+0 2
+1 -1
+2 1
+3 -1
+5
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 5
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+4
+noop 0 0 0
+3
+0
+0
+1
+lw 1 2 2
+5
+7
+0
+noop 0 0 0
+5
+lw 0 1 6
+5
+0 -1
+1 2
+2 -1
+3 1
+6
+4
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 5
+Reg2: 0
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 1 1
+4
+add 1 2 1
+4
+5
+0
+1
+noop 0 0 0
+4
+3
+0
+lw 1 2 2
+-1
+noop 0 0 0
+5
+0 1
+1 -1
+2 2
+3 -1
+7
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 5
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 0 65533
+5
+beq 0 1 1
+4
+0
+0
+1
+add 1 2 1
+5
+4
+0
+noop 0 0 0
+-1
+lw 1 2 2
+-1
+0 1
+1 1
+2 -1
+3 2
+8
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 5
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+beq 0 0 65533
+5
+0
+0
+-3
+beq 0 1 1
+5
+0
+0
+add 1 2 1
+4
+noop 0 0 0
+-1
+0 65533
+1 1
+2 1
+3 -1
+9
+7
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 5
+7
+halt 0 0 0
+6
+0
+0
+0
+beq 0 0 65533
+2
+1
+0
+beq 0 1 1
+4
+add 1 2 1
+4
+0 -1
+1 65533
+2 1
+3 1
+10
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+8
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+beq 0 0 65533
+4
+beq 0 1 1
+4
+0 5
+1 -1
+2 65533
+3 1
+11
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+3
+noop 0 0 0
+8
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+4
+beq 0 0 65533
+4
+0 -1
+1 5
+2 -1
+3 65533
+12
+4
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 1 1
+4
+add 1 2 1
+3
+4
+-1
+1
+noop 0 0 0
+8
+8
+0
+noop 0 0 0
+4
+noop 0 0 0
+4
+0 1
+1 -1
+2 5
+3 -1
+13
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 0 65533
+5
+beq 0 1 1
+4
+0
+-1
+1
+add 1 2 1
+4
+3
+-1
+noop 0 0 0
+4
+noop 0 0 0
+4
+0 1
+1 1
+2 -1
+3 5
+14
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 4
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+beq 0 0 65533
+5
+0
+0
+-3
+beq 0 1 1
+5
+0
+-1
+add 1 2 1
+3
+noop 0 0 0
+4
+0 65533
+1 1
+2 1
+3 -1
+15
+7
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 5
+7
+halt 0 0 0
+6
+0
+0
+0
+beq 0 0 65533
+2
+1
+0
+beq 0 1 1
+3
+add 1 2 1
+3
+0 -1
+1 65533
+2 1
+3 1
+16
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+8
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+beq 0 0 65533
+3
+beq 0 1 1
+3
+0 5
+1 -1
+2 65533
+3 1
+17
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+3
+noop 0 0 0
+8
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+3
+beq 0 0 65533
+3
+0 -1
+1 5
+2 -1
+3 65533
+18
+4
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 1 1
+4
+add 1 2 1
+3
+3
+-1
+1
+noop 0 0 0
+8
+8
+0
+noop 0 0 0
+3
+noop 0 0 0
+3
+0 1
+1 -1
+2 5
+3 -1
+19
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 0 65533
+5
+beq 0 1 1
+4
+0
+-1
+1
+add 1 2 1
+4
+2
+-1
+noop 0 0 0
+3
+noop 0 0 0
+3
+0 1
+1 1
+2 -1
+3 5
+20
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 3
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+beq 0 0 65533
+5
+0
+0
+-3
+beq 0 1 1
+5
+0
+-1
+add 1 2 1
+2
+noop 0 0 0
+3
+0 65533
+1 1
+2 1
+3 -1
+21
+7
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 5
+7
+halt 0 0 0
+6
+0
+0
+0
+beq 0 0 65533
+2
+1
+0
+beq 0 1 1
+2
+add 1 2 1
+2
+0 -1
+1 65533
+2 1
+3 1
+22
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+8
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+beq 0 0 65533
+2
+beq 0 1 1
+2
+0 5
+1 -1
+2 65533
+3 1
+23
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+3
+noop 0 0 0
+8
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+2
+beq 0 0 65533
+2
+0 -1
+1 5
+2 -1
+3 65533
+24
+4
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 1 1
+4
+add 1 2 1
+3
+2
+-1
+1
+noop 0 0 0
+8
+8
+0
+noop 0 0 0
+2
+noop 0 0 0
+2
+0 1
+1 -1
+2 5
+3 -1
+25
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 0 65533
+5
+beq 0 1 1
+4
+0
+-1
+1
+add 1 2 1
+4
+1
+-1
+noop 0 0 0
+2
+noop 0 0 0
+2
+0 1
+1 1
+2 -1
+3 5
+26
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 2
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+beq 0 0 65533
+5
+0
+0
+-3
+beq 0 1 1
+5
+0
+-1
+add 1 2 1
+1
+noop 0 0 0
+2
+0 65533
+1 1
+2 1
+3 -1
+27
+7
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 5
+7
+halt 0 0 0
+6
+0
+0
+0
+beq 0 0 65533
+2
+1
+0
+beq 0 1 1
+1
+add 1 2 1
+1
+0 -1
+1 65533
+2 1
+3 1
+28
+2
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+8
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+beq 0 0 65533
+1
+beq 0 1 1
+1
+0 5
+1 -1
+2 65533
+3 1
+29
+3
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 1 2 1
+3
+noop 0 0 0
+8
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+1
+beq 0 0 65533
+1
+0 -1
+1 5
+2 -1
+3 65533
+30
+4
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 1 1
+4
+add 1 2 1
+3
+1
+-1
+1
+noop 0 0 0
+8
+8
+0
+noop 0 0 0
+1
+noop 0 0 0
+1
+0 1
+1 -1
+2 5
+3 -1
+31
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+beq 0 0 65533
+5
+beq 0 1 1
+4
+0
+-1
+1
+add 1 2 1
+4
+0
+-1
+noop 0 0 0
+1
+noop 0 0 0
+1
+0 1
+1 1
+2 -1
+3 5
+32
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 1
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+beq 0 0 65533
+5
+0
+0
+-3
+beq 0 1 1
+5
+1
+-1
+add 1 2 1
+0
+noop 0 0 0
+1
+0 65533
+1 1
+2 1
+3 -1
+33
+5
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+noop 0 0 0
+7
+noop 0 0 0
+0
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+beq 0 1 1
+0
+add 1 2 1
+0
+0 -1
+1 65533
+2 1
+3 1
+34
+6
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+halt 0 0 0
+6
+noop 0 0 0
+7
+0
+0
+0
+noop 0 0 0
+0
+0
+0
+noop 0 0 0
+0
+beq 0 1 1
+0
+0 -1
+1 -1
+2 65533
+3 1
+35
+7
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 5
+7
+halt 0 0 0
+6
+0
+0
+0
+noop 0 0 0
+7
+7
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 -1
+1 -1
+2 -1
+3 65533
+36
+8
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+data 7 7 65535
+8
+add 0 0 5
+7
+0
+0
+5
+halt 0 0 0
+6
+6
+0
+noop 0 0 0
+0
+noop 0 0 0
+0
+0 5
+1 -1
+2 -1
+3 -1
+37
+9
+DataMem0: 8454150
+DataMem1: 9043970
+DataMem2: 655361
+DataMem3: 16842753
+DataMem4: 16842749
+DataMem5: 25165824
+DataMem6: 5
+DataMem7: -1
+DataMem8: 2
+Reg0: 0
+Reg1: 0
+Reg2: -1
+Reg3: 0
+Reg4: 0
+Reg5: 0
+Reg6: 0
+Reg7: 0
+add 0 0 2
+9
+data 7 7 65535
+8
+0
+0
+-1
+add 0 0 5
+12
+0
+0
+halt 0 0 0
+0
+noop 0 0 0
+0
+0 65535
+1 5
+2 -1
+3 -1
+37

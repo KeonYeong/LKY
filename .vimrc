@@ -1,0 +1,12 @@
+set number          "Show line number"
+  set autoindent      "Auto indent"
+  set smartindent     "Smart indent"
+  set cindent         "C style indent"
+  set shiftwidth=4    "Set auto indent witdh 4 spaces"
+  set tabstop=4       "Set tab width 4 spaces"
+  set expandtab       "Set tab to spaces"
+  set showmatch       "Show matched brackets"
+  set ignorecase      "No classify capital/small characters"
+  set title           "Show title"
+  set ruler           "Show cusor position"
+
