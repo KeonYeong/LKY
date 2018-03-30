@@ -1,0 +1,14 @@
+*.o
+*.init
+*.work
+*.result
+secondSample.cpp
+firstDraft.cpp
+ref_solution.cpp
+*.exe
+*.out
+*.app
+marker
+run_TA
+run_bunhal
+run_hanbang
