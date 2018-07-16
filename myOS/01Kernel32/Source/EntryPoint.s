@@ -1,4 +1,4 @@
-[ORG 0x00]
+[ORG 0x00]	; 코드 시작 어드레스 0x00으로 기준잡기
 [BITS 16]
 
 SECTION .text
@@ -27,11 +27,11 @@ START:
     lgdt [ GDTR ]
     mov eax, 0x4000003B
     mov cr0, eax
-    jmp dword 0x08: ( PROTECTEDMODE - $$ + 0x10000 )
+    jmp dword 0x18: ( PROTECTEDMODE - $$ + 0x10000 )
 
 [BITS 32]
 PROTECTEDMODE:
-    mov ax, 0x10
+    mov ax, 0x20
     mov ds, ax
     mov es, ax
     mov fs, ax
@@ -47,7 +47,7 @@ PROTECTEDMODE:
     call PRINTMESSAGE
     add esp, 12
 
-    jmp dword 0x08: 0x10200
+    jmp dword 0x18: 0x10200
 
 PRINTMESSAGE:
     push ebp
@@ -92,11 +92,14 @@ align 8, db 0
 
 dw 0x0000
 
+; GDTR 자료구조 정의
 GDTR:
     dw GDTEND - GDT - 1
     dd ( GDT - $$ + 0x10000 )
-    
+
+; GDT 테이블 정의
 GDT:
+	; 널 디스크립터, 반드시 0으로 초기화해야 함
     NULLDescriptor:
         dw 0x0000
         dw 0x0000
@@ -104,6 +107,26 @@ GDT:
         db 0x00
         db 0x00
         db 0x00
+
+	; IA-32e 모드 커널용 코드 세그먼트 디스크립터
+	IA_32eCODEDESCRIPTOR:
+		dw 0xFFFF
+		dw 0x0000
+		db 0x00
+		db 0x9A
+		db 0xAF
+		db 0x00
+
+	; IA-32e 모드 커널용 데이터 세그먼트 디스크립터
+	IA_32eDATADESCRIPTOR:
+		dw 0xFFFF
+		dw 0x0000
+		db 0x00
+		db 0x92
+		db 0xAF
+		db 0x00
+
+	; 보호모드 커널용 코드 세그먼트 디스크립터
     CODEDESCRIPTOR:
         dw 0xFFFF
         dw 0x0000
@@ -111,6 +134,8 @@ GDT:
         db 0x9A
         db 0xCF
         db 0x00
+	
+	; 보호 모드 커널용 데이터 세그먼트 디스크립터
     DATADESCRIPTOR:
         dw 0xFFFF
         dw 0x0000
