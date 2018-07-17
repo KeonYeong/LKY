@@ -2,7 +2,7 @@
 
 SECTION .text
 
-global kInPortByte, kOutPortByte
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 ; 포트에서 1바이트 읽기
 ; PARAM: 포트 번호가 들어옴
 kInPortByte:
@@ -24,4 +24,22 @@ kOutPortByte:
 	pop rax
 	pop rdx
 	ret
-	
+
+; GDTR 레지스터에 GDT 테이블 설정
+; PARAM: GDT 테이블의 어드레스
+kLoadGDTR:
+	lgdt [rdi] ; 파라미터1의 값에 있는 걸 gdt 레지스터에 넣는 것
+	ret
+
+; TR 레지스터에 TSS 설정
+; PARAM: TSS 세그먼트 디스크립터의 offset
+kLoadTR:
+	ltr di ; 파라미터 1에 있는 걸 tr에 로드하는 것
+	ret
+
+; IDTR 레지스터에 IDT 테이블 로드
+; PARAM: IDT 테이블의 어드레스
+kLoadIDTR:
+	lidt [rdi] ; 파라미터 1에 있는 걸 idt 레지스터에 넣음
+	ret
+

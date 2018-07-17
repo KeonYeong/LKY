@@ -152,7 +152,7 @@ PRINTMESSAGE:
     pop bp
     ret
 
-MESSAGE1:   db 'DF OS Boot Loader Start', 0
+MESSAGE1:   db 'LKY OS Boot Loader Start', 0
 
 DISKERRORMESSAGE:   db  'DISK Error', 0
 IMAGELOADINGMESSAGE:    db  'OS Image Loading', 0
