@@ -2,7 +2,7 @@
 
 SECTION .text
 
-global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR, kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
 ; 포트에서 1바이트 읽기
 ; PARAM: 포트 번호가 들어옴
 kInPortByte:
@@ -43,3 +43,21 @@ kLoadIDTR:
 	lidt [rdi] ; 파라미터 1에 있는 걸 idt 레지스터에 넣음
 	ret
 
+; 인터럽트 활성화
+; PARAM: 없음
+kEnableInterrupt:
+	sti ; 활성화 명령어
+	ret
+
+; 인터럽트 비활성화
+; PARAM: 없음
+kDisableInterrupt:
+	cli ; 비활성화 명령어
+	ret
+
+; RFLAGS 레지스터를 읽어서 반환
+; PARAM: 없음
+kReadRFLAGS:
+	pushfq	; RFLAGS를 스택에 저장하는 명령어
+	pop rax ; 반환 값인 ax에다가 넣고 종료
+	ret
