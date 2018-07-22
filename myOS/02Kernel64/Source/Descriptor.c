@@ -141,12 +141,3 @@ void kInitializeIDTTables(void){
 		kSetIDTEntry(&(pstEntry[i]), kISRETCInterrupt, 0x08, IDT_FLAGS_IST1, IDT_FLAGS_KERNEL, IDT_TYPE_INTERRUPT);
 }
 
-// 임시 핸들러
-void kDummyHandler(void){
-	kPrintString(0, 0, "================================================================");
-	kPrintString(0, 1, "                   Dummy Interrupt Handler Execute              ");
-	kPrintString(0, 2, "                    Interrupt or Exception Occur                ");
-	kPrintString(0, 3, "================================================================");
-
-	while(1);
-}
