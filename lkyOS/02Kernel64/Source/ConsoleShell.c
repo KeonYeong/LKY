@@ -2,6 +2,10 @@
 #include "Console.h"
 #include "Keyboard.h"
 #include "Utility.h"
+#include "PIT.h"
+#include "RTC.h"
+#include "AssemblyUtility.h"
+#include "ShutDownPC.h"
 
 // 커맨드 테이블 정의하기, 커맨드 테이블에서 문자열 비교후 함수 포인터를 사용해서 해당 커맨드를 실행할 것이다
 SHELLCOMMANDENTRY gs_vstCommandTable[] =
@@ -11,6 +15,12 @@ SHELLCOMMANDENTRY gs_vstCommandTable[] =
 	{"totalram", "Show Total RAM Size", kShowTotalRAMSize},
 	{"strtod", "String To Decimal/Hex Convert", kStringToDecimalHexTest},
 	{"shutdown", "Shutdown And Reboot OS", kShutdown},
+	{"settimer", "Set PIT Controller Counter0, ex)settimer 10(ms) 1(periodic)", kSetTimer},
+	{"wait", "Wait ms Using PIT, ex)wait 100(ms)", kWaitUsingPIT},
+	{"rdtsc", "Read Time Stamp Counter", kReadTimeStampCounter},
+	{"cpuspeed", "Measure Processor Speed", kMeasureProcessorSpeed},
+	{"date", "Show Date And Time", kShowDateAndTime},
+	{"poweroff", "Shutdown PC", kShutDownPC},
 };
 
 //======================
@@ -25,7 +35,7 @@ void kStartConsoleShell(void){
 	int iCursorX, iCursorY;
 
 	// 프롬프트 출력 (키 입력 준비 완료 표시)
-	kPrintf(CONSOLESHELL_PROMPTMESSAGE);
+	kLKYPrintf(PROMPTMESSAGE, CONSOLESHELL_PROMPTMESSAGE);
 
 	while(1){
 		// 키 수신 대기
@@ -54,7 +64,7 @@ void kStartConsoleShell(void){
 			}
 
 			// 프롬프트 다시 출력하고 커맨드 버퍼는 초기화 한다
-			kPrintf(CONSOLESHELL_PROMPTMESSAGE);
+			kLKYPrintf(PROMPTMESSAGE, CONSOLESHELL_PROMPTMESSAGE);
 			kMemSet(vcCommandBuffer, '\0', CONSOLESHELL_MAXCOMMANDBUFFERCOUNT);
 			iCommandBufferIndex = 0;
 		}
@@ -71,9 +81,9 @@ void kStartConsoleShell(void){
 			// 버퍼에 공간이 있어야만 커맨드 버퍼에 문자 추가
 			if(iCommandBufferIndex < CONSOLESHELL_MAXCOMMANDBUFFERCOUNT){
 				vcCommandBuffer[iCommandBufferIndex++] = bKey;
-				kPrintf("%c", bKey);
+				kLKYPrintf(INPUTMESSAGE ,"%c", bKey);
 			}
-			else kPrintf("\nToo Long Command, Press Enter First");
+			else kLKYPrintf(ERRORMESSAGE, "\nToo Long Command, Press Enter First");
 		}
 	}
 }
@@ -103,7 +113,7 @@ void kExecuteCommand(const char* pcCommandBuffer){
 
 	// 테이블에 없으면 에러
 	if(i >= iCount)
-		kPrintf("%s\n", pcCommandBuffer);
+		kLKYPrintf(ERRORMESSAGE, "%s not defined\n", pcCommandBuffer);
 }
 
 //  파라미터 자료구조 초기화 하기, 여러개 파라미터는 공백으로 구분지어서 하나의 문자열로 주게 된다
@@ -220,4 +230,110 @@ void kShutdown(const char* pcParameterBuffer){
 	kPrintf("Press Any Key To Reboot PC...");
 	kGetCh();
 	kReboot();
+}
+
+// 타이머 시작!(Counter0 사용)
+void kSetTimer(const char* pcParameterBuffer){
+	char vcParameter[100];
+	PARAMETERLIST stList;
+	long lValue;
+	BOOL bPeriodic;
+
+	// 파라미터 초기화
+	kInitializeParameter(&stList, pcParameterBuffer);
+
+	// ms 추출
+	if(kGetNextParameter(&stList, vcParameter) == 0){
+		kLKYPrintf(ERRORMESSAGE, "ex)settimer 10(ms) 1(periodic)\n");
+		return;
+	}
+	lValue = kAToI(vcParameter, 10);
+	if(kMemCmp(vcParameter, "0x", 2) == 0) lValue = kAToI(vcParameter + 2, 16);
+	else lValue = kAToI(vcParameter, 10);
+
+	// Periodic 추출
+	if(kGetNextParameter(&stList, vcParameter) == 0){
+		kLKYPrintf(ERRORMESSAGE, "ex)settimer 10(ms) 1(periodic)\n");
+		return;
+	}
+	bPeriodic = kAToI(vcParameter, 10);
+
+	// 타이머 초기화
+	kInitializePIT(MSTOCOUNT(lValue), bPeriodic);
+	kPrintf("Time = %d ms, Periodic = %d Change Complete\n", ((WORD)(MSTOCOUNT(lValue) + 1)) * 1000 / PIT_FREQUENCY, bPeriodic);
+}
+
+// PIT 컨트롤러 사용 하여 ms 시간동안 대기시키기
+void kWaitUsingPIT(const char* pcParameterBuffer){
+	char vcParameter[100];
+	int iLength;
+	PARAMETERLIST stList;
+	long lMillisecond;
+	int i;
+
+	// 파라미터 초기화
+	kInitializeParameter(&stList, pcParameterBuffer);
+	if(kGetNextParameter(&stList, vcParameter) == 0){
+		kLKYPrintf(ERRORMESSAGE, "ex)wait 100(ms)\n");
+		return;
+	}
+
+	// 밀리세컨드 추출
+	lMillisecond = kAToI(vcParameter, 10);
+	kPrintf("%d ms Sleep start\n", lMillisecond);
+	// 인터럽트 비활성화 후 30ms 단위로 여러본 wait(30)을 호출시키고, 30으로 나눈 나머지만큼 한번 더 wait시킴
+	kDisableInterrupt();
+	for(i = 0; i < lMillisecond / 30; i ++) kWaitUsingDirectPIT(MSTOCOUNT(30));
+	kWaitUsingDirectPIT(MSTOCOUNT(lMillisecond % 30));
+	kEnableInterrupt();
+	kPrintf("%d ms Sleep Complete\n", lMillisecond);
+
+	// 타이머 복원
+	kInitializePIT(MSTOCOUNT(1), TRUE);
+}
+
+// 타임 스탬프 카운터 읽는 함수
+void kReadTimeStampCounter(const char* pcParameterBuffer){
+	QWORD qwTSC;
+
+	qwTSC = kReadTSC();
+	kPrintf("Time Stamp Counter = %q\n", qwTSC);
+}
+
+// 프로세서 속도 측정 함수
+void kMeasureProcessorSpeed(const char* pcParameterBuffer){
+	int i;
+	QWORD qwLastTSC, qwTotalTSC = 0;
+
+	kPrintf("Now Measuring.");
+
+	kDisableInterrupt();
+	// 10초 동안 변화한 타임 스탬프 카운터를 사용하여 프로세서 속도 측정함
+	for(i = 0; i < 200; i ++){
+		qwLastTSC = kReadTSC();
+		kWaitUsingDirectPIT(MSTOCOUNT(50));
+		qwTotalTSC += kReadTSC() - qwLastTSC;
+
+		kPrintf(".");
+	}
+
+	// 타이머 복원
+	kInitializePIT(MSTOCOUNT(1), TRUE);
+	kEnableInterrupt();
+
+	kPrintf("\nCPU Speed = %d MHz\n", qwTotalTSC / 10 / 1000 / 1000);
+}
+
+// RTC컨트롤러로 저아된 일자, 시간 표시
+void kShowDateAndTime(const char* pcParameterBuffer){
+	BYTE bSecond, bMinute, bHour;
+	BYTE bDayOfWeek, bDayOfMonth, bMonth;
+	WORD wYear;
+
+	// 읽어 오고
+	kReadRTCTime(&bHour, &bMinute, &bSecond);
+	kReadRTCDate(&wYear, &bMonth, &bDayOfMonth, &bDayOfWeek);
+
+	kPrintf("Date: %d/%d/%d %s, ", wYear, bMonth, bDayOfMonth, kConvertDayOfWeekToString(bDayOfWeek));
+	kPrintf("Time: %d:%d:%d\n", bHour, bMinute, bSecond);
 }

@@ -2,7 +2,7 @@
 
 SECTION .text
 
-global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR, kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR, kEnableInterrupt, kDisableInterrupt, kReadRFLAGS, kReadTSC
 ; 포트에서 1바이트 읽기
 ; PARAM: 포트 번호가 들어옴
 kInPortByte:
@@ -61,3 +61,14 @@ kReadRFLAGS:
 	pushfq	; RFLAGS를 스택에 저장하는 명령어
 	pop rax ; 반환 값인 ax에다가 넣고 종료
 	ret
+
+; 타임 스탬프 카운터 (프로세서 내장)를 읽고 반환
+; PARAM: 없음
+kReadTSC:
+	push rdx ; 상위 하위 바이트 따로 읽기 때문에, rdx, rax 두개를 써서 반환한다
+	rdtsc
+	shl rdx, 32 ; 상위가 rdx에 있기 때문에 rdx를 왼쪽으로 4바이트씩 옮긴다
+	or rax, rdx ; 그 후에 rax에 하나로 or 연산 시키고 반환
+	pop rdx
+	ret
+

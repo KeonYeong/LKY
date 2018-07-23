@@ -35,6 +35,18 @@
 // 기본 문자 색
 #define CONSOLE_DEFAULTTEXTCOLOR (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_BRIGHTGREEN)
 
+// 사용자 설정 색
+// 관련 매크로
+#define DEFAULTMESSAGE 0
+#define ERRORMESSAGE 1
+#define PROMPTMESSAGE 2
+#define INPUTMESSAGE 3
+
+#define LKY_DEFAULTTEXTCOLOR (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_BRIGHTGREEN) // 기본
+#define LKY_ERRORTEXTCOLOR (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_BRIGHTRED) // 에러
+#define LKY_PROMPTTEXTCOLOR (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_BRIGHTYELLOW) // 프롬프트
+#define LKY_INPUTTEXTCOLOR (CONSOLE_BACKGROUND_BLACK | CONSOLE_FOREGROUND_DARKWHITE) // 입력
+
 // 콘솔 설정 값, 비디오 메모리 주소 설정
 #define CONSOLE_WIDTH 80
 #define CONSOLE_HEIGHT 25
@@ -62,7 +74,7 @@ void kInitializeConsole(int iX, int iY);
 void kSetCursor(int iX, int iY);
 void kGetCursor(int* piX, int* piY);
 void kPrintf(const char* pcFormatString, ...);
-int kConsolePrintString(const char* pcBuffer);
+int kConsolePrintString(int iType, const char* pcBuffer);
 void kClearScreen(void);
 BYTE kGetCh(void);
 void kPrintStringXY(int iX, int iY, const char* pcString);

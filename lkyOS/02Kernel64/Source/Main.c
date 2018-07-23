@@ -57,7 +57,7 @@ void Main( void )
 	}
 	else {
 		kSetCursor(45, iCursorY++);
-		kPrintf("Fail\n");
+		kLKYPrintf(ERRORMESSAGE, "Fail\n");
 		while(1);
 	}
 

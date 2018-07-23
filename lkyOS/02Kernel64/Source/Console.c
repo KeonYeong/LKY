@@ -56,14 +56,31 @@ void kPrintf(const char* pcFormatString, ...){
 	va_end(ap);
 
 	// 출력하기!
-	iNextPrintOffset = kConsolePrintString(vcBuffer);
+	iNextPrintOffset = kConsolePrintString(DEFAULTMESSAGE, vcBuffer);
+
+	// 커서 위치 업데이트!
+	kSetCursor(iNextPrintOffset % CONSOLE_WIDTH, iNextPrintOffset / CONSOLE_WIDTH);
+}
+
+// 나만의 printf 함수 구현
+void kLKYPrintf(int iType, const char* pcFormatString, ...){
+	va_list ap;
+	char vcBuffer[1024];
+	int iNextPrintOffset;
+
+	va_start(ap, pcFormatString);
+	kVSPrintf(vcBuffer, pcFormatString, ap); // vsprintf() 사용하여 우선 문자열을 만들어낸다
+	va_end(ap);
+
+	// 출력하기!
+	iNextPrintOffset = kConsolePrintString(iType, vcBuffer);
 
 	// 커서 위치 업데이트!
 	kSetCursor(iNextPrintOffset % CONSOLE_WIDTH, iNextPrintOffset / CONSOLE_WIDTH);
 }
 
 // printf()를 할 때 \n, \t 또한 처리해줘야 하기 때문에 consoleprintstring을 따로 쓴다, 또한 화면상의 다음 출력 위치를 반환한다
-int kConsolePrintString(const char* pcBuffer){
+int kConsolePrintString(int iType, const char* pcBuffer){
 	CHARACTER* pstScreen = (CHARACTER*) CONSOLE_VIDEOMEMORYADDRESS;
 	int i, j;
 	int iLength;
@@ -83,7 +100,21 @@ int kConsolePrintString(const char* pcBuffer){
 
 		else { // 일반 문자열 처리하기
 			pstScreen[iPrintOffset].bCharactor = pcBuffer[i];
-			pstScreen[iPrintOffset].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+			switch(iType){
+				case PROMPTMESSAGE:
+					pstScreen[iPrintOffset].bAttribute = LKY_PROMPTTEXTCOLOR;
+					break;
+				case ERRORMESSAGE:
+					pstScreen[iPrintOffset].bAttribute = LKY_ERRORTEXTCOLOR;
+					break;
+				case INPUTMESSAGE:
+					pstScreen[iPrintOffset].bAttribute = LKY_INPUTTEXTCOLOR;
+					break;
+				case DEFAULTMESSAGE:
+				default:
+					pstScreen[iPrintOffset].bAttribute = LKY_DEFAULTTEXTCOLOR;
+					break;
+			}
 			iPrintOffset++;
 		}
 
@@ -95,7 +126,7 @@ int kConsolePrintString(const char* pcBuffer){
 			// 마지막 라인 공백 처리
 			for(j = (CONSOLE_HEIGHT - 1) * (CONSOLE_WIDTH); j < CONSOLE_HEIGHT * CONSOLE_WIDTH; j++){
 				pstScreen[j].bCharactor = ' ';
-				pstScreen[j].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+				pstScreen[j].bAttribute = LKY_DEFAULTTEXTCOLOR;
 			}
 
 			// 이제 커서를 마지막 라인 첫번째로 수정한다
@@ -114,7 +145,7 @@ void kClearScreen(void){
 	// 화면 전체를 공백으로 채우기
 	for(i = 0; i < CONSOLE_WIDTH * CONSOLE_HEIGHT; i++){
 		pstScreen[i].bCharactor = ' ';
-		pstScreen[i].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+		pstScreen[i].bAttribute = LKY_DEFAULTTEXTCOLOR;
 	}
 
 	// 커서 화면 상단 이동
@@ -146,6 +177,6 @@ void kPrintStringXY(int iX, int iY, const char* pcString){
 	// 길이만큼 출력
 	for(i = 0; pcString[i] != 0; i ++){
 		pstScreen[i].bCharactor = pcString[i];
-		pstScreen[i].bAttribute = CONSOLE_DEFAULTTEXTCOLOR;
+		pstScreen[i].bAttribute = LKY_DEFAULTTEXTCOLOR;
 	}
 }
