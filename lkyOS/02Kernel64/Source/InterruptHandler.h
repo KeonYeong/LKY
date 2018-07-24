@@ -6,6 +6,7 @@
 // 함수
 void kCommonExceptionHandler(int iVectorNumber, QWORD qwErrorCode);
 void kCommonInterruptHandler(int iVectorNumber);
+void kTimerHandler(int iVectorNumber);
 void kKeyboardHandler(int iVectorNumber);
 
 #endif /*__INTERRUPTHANDLER_H__*/

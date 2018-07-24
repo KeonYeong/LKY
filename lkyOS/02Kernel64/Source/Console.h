@@ -74,6 +74,7 @@ void kInitializeConsole(int iX, int iY);
 void kSetCursor(int iX, int iY);
 void kGetCursor(int* piX, int* piY);
 void kPrintf(const char* pcFormatString, ...);
+void kLKYPrintf(int iType, const char* pcFormatString, ...);
 int kConsolePrintString(int iType, const char* pcBuffer);
 void kClearScreen(void);
 BYTE kGetCh(void);

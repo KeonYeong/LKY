@@ -21,5 +21,9 @@ int kSPrintf(char* pcBuffer, const char* pcFormatString, ...);
 int kVSPrintf(char* pcBuffer, const char* pcFormatString, va_list ap);
 void kCheckTotalRAMSize(void);
 QWORD kGetTotalRAMSize(void);
+QWORD kGetTickCount(void);
+
+// 기타
+extern volatile QWORD g_qwTickCount;
 
 #endif /*__UTILITY_H__*/

@@ -3,7 +3,7 @@
 SECTION .text
 
 ; 외부 함수를 쓸 수 있게 가져옴
-extern kCommonExceptionHandler, kCommonInterruptHandler, kKeyboardHandler
+extern kCommonExceptionHandler, kCommonInterruptHandler, kKeyboardHandler, kTimerHandler
 
 ; 정의한 함수들을 외부에서 쓸 수 있게 선언
 ; 이하는 예외(Exception)을 위한 것
@@ -325,7 +325,7 @@ kISRTimer:
 	KSAVECONTEXT
 
 	mov rdi, 32
-	call kCommonInterruptHandler
+	call kTimerHandler
 
 	KLOADCONTEXT
 	iretq

@@ -4,6 +4,8 @@
 #include "PIC.h"
 #include "Console.h"
 #include "ConsoleShell.h"
+#include "Task.h"
+#include "PIT.h"
 
 void kPrintString( int iX, int iY, const char* pcString );
 
@@ -46,7 +48,14 @@ void Main( void )
 	kPrintf("Total RAM Size Check........................[    ]");
 	kCheckTotalRAMSize();
 	kSetCursor(45, iCursorY++);
-	kPrintf("Done], Size = %d MB\n", kGetTotalRAMSize());
+	kPrintf("Done] (Size = %d MB)\n", kGetTotalRAMSize());
+
+	// TCB 풀, 스케줄러(리스트 포함) 등 초기화
+	kPrintf("TCB Pool And Scheduler Initialize...........[Done]\n");
+	iCursorY++;
+	kInitializeScheduler();
+	// PIT에 인터럽트 1ms마다 발생하게 설정
+	kInitializePIT(MSTOCOUNT(1), 1);
 	
 	//키보드 활성화
 	kPrintf("Keyboard Activate...........................[    ]");

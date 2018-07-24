@@ -2,6 +2,9 @@
 #include "PIC.h"
 #include "Keyboard.h"
 #include "Console.h"
+#include "Utility.h"
+#include "Task.h"
+#include "Descriptor.h"
 
 // 공통으로 사용하는 예외 핸들러
 void kCommonExceptionHandler(int iVectorNumber, QWORD qwErrorCode){
@@ -33,6 +36,29 @@ void kCommonInterruptHandler(int iVectorNumber){
 
 	// EOI 전송
 	kSendEOIToPIC(iVectorNumber - PIC_IRQSTARTVECTOR); // 뒤에 있는 매크로는 32이고, 벡터가 32부터 시작하기에 빼준다(핀은 0부터 시작하니까)
+}
+
+// 타이머 인터럽트 핸들러
+void kTimerHandler(int iVectorNumber){
+	char vcBuffer[] = "[INT:  , ]";
+	static int g_iTimerInterruptCount = 0;
+
+	vcBuffer[5] = '0' + iVectorNumber / 10;
+	vcBuffer[6] = '0' + iVectorNumber % 10;
+	vcBuffer[8] = '0' + g_iTimerInterruptCount;
+	g_iTimerInterruptCount = (g_iTimerInterruptCount + 1) % 10;
+	kPrintStringXY(70, 0, vcBuffer);
+
+	kSendEOIToPIC(iVectorNumber - PIC_IRQSTARTVECTOR);
+
+	// 타이머 발생 횟수 증가
+	g_qwTickCount++;
+
+	// 태스크가 사용한 프로세서의 시간 줄임
+	kDecreaseProcessorTime();
+	// 태스크 할당 시간 체크 후 소진 시 스위치
+	if(kIsProcessorTimeExpired() == TRUE)
+		kScheduleInInterrupt();
 }
 
 // 키보드 인터럽트 핸들러

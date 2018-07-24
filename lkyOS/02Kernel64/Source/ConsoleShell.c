@@ -5,6 +5,7 @@
 #include "PIT.h"
 #include "RTC.h"
 #include "AssemblyUtility.h"
+#include "Task.h"
 #include "ShutDownPC.h"
 
 // 커맨드 테이블 정의하기, 커맨드 테이블에서 문자열 비교후 함수 포인터를 사용해서 해당 커맨드를 실행할 것이다
@@ -20,6 +21,7 @@ SHELLCOMMANDENTRY gs_vstCommandTable[] =
 	{"rdtsc", "Read Time Stamp Counter", kReadTimeStampCounter},
 	{"cpuspeed", "Measure Processor Speed", kMeasureProcessorSpeed},
 	{"date", "Show Date And Time", kShowDateAndTime},
+	{"createtask", "Create Task, ex)createtask 1(type) 10(count)", kCreateTestTask},
 	{"poweroff", "Shutdown PC", kShutDownPC},
 };
 
@@ -337,3 +339,96 @@ void kShowDateAndTime(const char* pcParameterBuffer){
 	kPrintf("Date: %d/%d/%d %s, ", wYear, bMonth, bDayOfMonth, kConvertDayOfWeekToString(bDayOfWeek));
 	kPrintf("Time: %d:%d:%d\n", bHour, bMinute, bSecond);
 }
+
+// 태스크 테스트 :: 전환 함수
+void kTestTask1(void){
+	BYTE bData = 0;
+	int i = 0, iX = 0, iY = 0, iMargin;
+	CHARACTER* pstScreen = (CHARACTER*) CONSOLE_VIDEOMEMORYADDRESS;
+	TCB* pstRunningTask;
+
+	pstRunningTask = kGetRunningTask();
+	iMargin = (pstRunningTask->stLink.qwID & 0xFFFFFFFF) % 10; 
+
+	while(1) 
+	{
+		switch(i) 
+		{
+			case 0:
+				iX++;
+				if(iX >= (CONSOLE_WIDTH - iMargin)) i = 1;
+				break;
+
+			case 1:
+				iY++;
+				if(iY >= (CONSOLE_HEIGHT - iMargin)) i = 2;
+				break;
+
+			case 2:
+				iX--;
+				if(iX < iMargin) i = 3;
+				break;
+
+			case 3:
+				iY--;
+				if(iY < iMargin) i = 0;
+				break;
+		}
+		pstScreen[iY * CONSOLE_WIDTH + iX].bCharactor = bData;
+		pstScreen[iY * CONSOLE_WIDTH + iX].bAttribute = bData & 0x0F;
+		bData++;
+
+		kSchedule();
+	}   
+}
+
+void kTestTask2( void )
+{
+	int i = 0, iOffset;
+	CHARACTER* pstScreen = (CHARACTER*)CONSOLE_VIDEOMEMORYADDRESS;
+	TCB* pstRunningTask;
+	char vcData[4] = {'-', '\\', '|', '/'};
+
+	pstRunningTask = kGetRunningTask();
+	iOffset = (pstRunningTask->stLink.qwID & 0xFFFFFFFF) * 2;
+	iOffset = CONSOLE_WIDTH * CONSOLE_HEIGHT - (iOffset % (CONSOLE_WIDTH * CONSOLE_HEIGHT));
+
+	while( 1 )
+	{
+		pstScreen[iOffset].bCharactor = vcData[i % 4];
+		pstScreen[iOffset].bAttribute = (iOffset % 15) + 1;
+		i++;
+
+		kSchedule();
+	}
+}
+
+
+// 태스크 테스트 :: 생성 함수
+void kCreateTestTask(const char* pcParameterBuffer)
+{
+	PARAMETERLIST stList;
+	char vcType[30];
+	char vcCount[30];
+	int i;
+
+	kInitializeParameter(&stList, pcParameterBuffer);
+	kGetNextParameter(&stList, vcType);
+	kGetNextParameter(&stList, vcCount);
+
+	switch(kAToI(vcType, 10)) 
+	{   
+		case 1:
+			for(i = 0; i < kAToI(vcCount, 10) ; i ++)
+				if(kCreateTask(0, (QWORD)kTestTask1) == NULL) break;
+			kPrintf("Task1 %d Created\n", i);
+			break;
+
+		case 2:
+		default:
+			for(i = 0; i < kAToI(vcCount, 10) ; i++)
+				if( kCreateTask(0, (QWORD) kTestTask2) == NULL) break;
+			kPrintf( "Task2 %d Created\n", i );
+			break;
+	}
+}   

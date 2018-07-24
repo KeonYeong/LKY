@@ -2,6 +2,9 @@
 #include "AssemblyUtility.h"
 #include <stdarg.h>
 
+// PIT 컨트롤러용 타이머 인터럽트 카운터
+volatile QWORD g_qwTickCount = 0;
+
 // 메모리 특정 값으로 채우는 것
 void kMemSet(void* pvDestination, BYTE bData, int iSize){
 	int i;
