@@ -2,7 +2,7 @@
 
 SECTION .text
 
-global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR, kEnableInterrupt, kDisableInterrupt, kReadRFLAGS, kReadTSC, kSwitchContext
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR, kEnableInterrupt, kDisableInterrupt, kReadRFLAGS, kReadTSC, kSwitchContext, kHlt
 ; 포트에서 1바이트 읽기
 ; PARAM: 포트 번호가 들어옴
 kInPortByte:
@@ -182,3 +182,10 @@ kSwitchContext:
 	
 	KLOADCONTEXT
 	iretq ; iretq를 호출하면, 프로세서가 알아서 상위 5개 레지스터의 값을 스택에서 꺼내어 채워넣기 때문에 이대로 종료하면 된다	
+
+; 프로세서를 쉬게함
+; PARAM: 없음
+kHlt:
+	hlt ; 프로세서 대기 상태 진입 명령어
+	hlt
+	ret

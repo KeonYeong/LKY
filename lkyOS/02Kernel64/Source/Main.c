@@ -78,6 +78,9 @@ void Main( void )
 	kSetCursor(45, iCursorY++);
 	kPrintf("Done\n");
 
-	// 간단한 커널, 셀 시작
+	// 유휴 태스크 생성
+	kCreateTask(TASK_FLAGS_LOWEST | TASK_FLAGS_IDLE, (QWORD)kIdleTask);
+
+	// 셀 시작
 	kStartConsoleShell();
 }

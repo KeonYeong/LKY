@@ -322,4 +322,6 @@ QWORD kGetTotalRAMSize(void){
 	return gs_qwTotalRAMMBSize;
 }
 
-
+QWORD kGetTickCount(void){
+	return g_qwTickCount;
+}

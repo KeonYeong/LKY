@@ -159,7 +159,7 @@ BYTE kGetCh(void){
 	// 키가 눌릴 때까지 대기
 	while(1){
 		// 키 큐에 데이터가 있을 때까지 기다림
-		while(kGetKeyFromKeyQueue(&stData) == FALSE);
+		while(kGetKeyFromKeyQueue(&stData) == FALSE) kSchedule();
 
 		// 플래그를 봐서 키가 눌렸을 경우에만 ASCII 코드 반환
 		if(stData.bFlags & KEY_FLAGS_DOWN)
