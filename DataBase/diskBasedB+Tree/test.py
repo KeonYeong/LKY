@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-'''
-	test program
-'''
 
 from subprocess import Popen, PIPE
 import os
@@ -119,8 +116,8 @@ def test_delete(remain_rec, delete_rec):
 
 		if (result == (FIND_RESULT_FMTS % (i, 'a' + str(i))).strip()):
 			succ += 1   
-                else :
-                    print(result)
+		else :
+			print(result)
 
 	for i in delete_rec:
 		input_d = FIND_CMD_FMTS % (i)
@@ -131,8 +128,8 @@ def test_delete(remain_rec, delete_rec):
 
 		if (result == NOT_FOUND_RESULT):
 			succ += 1 
-                else :
-                    print(result)
+        else :
+        	print(result)
 
 	p.stdin.write(QUIT_CMD_FMTS.encode('utf-8'))
 	f.close()
