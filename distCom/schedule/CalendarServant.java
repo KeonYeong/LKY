@@ -16,7 +16,8 @@ public class CalendarServant extends UnicastRemoteObject implements CalendarServ
 
 	public int addSchedule(GregorianCalendar from, GregorianCalendar to, String desc) throws RemoteException{
 		for(Triplet t : calendar.values()){
-			if((t.getFrom().after(from) && t.getTo().before(from)) || (t.getFrom().after(to) && t.getTo().before(to))) return -1;
+			if((t.getFrom().before(from) && t.getTo().after(from)) || (t.getFrom().before(to) && t.getTo().after(to))) return -1;
+			if(t.getFrom().equals(from) || t.getFrom().equals(to) || t.getTo().equals(from) || t.getTo().equals(to)) return -1;
 		}
 		Triplet schedule = new Triplet(from, to, desc);
 		calendar.put(++ids, schedule);
@@ -32,6 +33,7 @@ public class CalendarServant extends UnicastRemoteObject implements CalendarServ
 		Vector<Triplet> temp = new Vector<Triplet>();
 		for(Triplet t : calendar.values()){
 			if(t.getFrom().after(from) && t.getTo().before(to)) temp.add(t);
+			else if((t.getFrom().equals(from) && t.getTo().before(to)) || (t.getFrom().after(from) && t.getTo().equals(to)) || (t.getFrom().equals(from) && t.getTo().equals(to))) temp.add(t);
 		}
 		return temp;
 	}
