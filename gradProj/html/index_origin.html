@@ -1,0 +1,91 @@
+<!doctype html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
+<title>Brushing Example</title>
+<link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="d3.js"></script>
+<script src="d3.svg.multibrush.js"></script>
+<script src="d3.parcoords.js"></script>
+<div id="example1" class="parcoords" style="width:900px; height:500px;"></div>
+<div id="example2" class="parcoords" style="width:900px; height:500px;"></div>
+<div id="example3" class="parcoords" style="width:900px; height:500px;"></div>
+<div id="example4" class="parcoords" style="width:900px; height:500px;"></div>
+<script>
+// quantitative color scale
+var white_to_black = d3.scale.linear()
+  .domain([0.4, 1])
+  .range(["white", "black"])
+  .interpolate(d3.interpolateLab);
+
+var white_to_black2 = d3.scale.linear()
+  .domain([0.8, 1])
+  .range(["white", "black"])
+  .interpolate(d3.interpolateLab);
+
+var color = function(d) { return white_to_black(d['weight']); };
+var color2 = function(d) { return white_to_black2(d['weight']); };
+
+var parcoords1 = d3.parcoords()("#example1")
+    .color(color)
+    .alpha(0.4);
+
+var parcoords2 = d3.parcoords()("#example2")
+    .color(color)
+    .alpha(0.4);
+
+var parcoords3 = d3.parcoords()("#example3")
+    .color(color)
+    .alpha(0.4);
+
+var parcoords4 = d3.parcoords()("#example4")
+    .color(color2)
+    .alpha(0.4);
+// load csv file and create the chart
+d3.csv('data/csv_pool1.csv', function(data) {
+  parcoords1
+    .data(data)
+    .hideAxis(["weight"])
+    .composite("darker")
+    .render()
+    .shadows()
+    .reorderable()
+    .brushMode("1D-axes");  // enable brushing
+});
+
+// load csv file and create the chart
+d3.csv('data/csv_pool2.csv', function(data) {
+  parcoords2
+    .data(data)
+    .hideAxis(["weight"])
+    .composite("darker")
+    .render()
+    .shadows()
+    .reorderable()
+    .brushMode("1D-axes");  // enable brushing
+});
+
+d3.csv('data/csv_fc.csv', function(data) {
+  parcoords3
+    .data(data)
+    .hideAxis(["weight"])
+    .composite("darker")
+    .render()
+    .shadows()
+    .reorderable()
+    .brushMode("1D-axes");  // enable brushing
+});
+
+d3.csv('data/csv_result.csv', function(data) {
+  parcoords4
+    .data(data)
+    .hideAxis(["weight"])
+    .composite("darker")
+    .render()
+    .shadows()
+    .reorderable()
+    .brushMode("1D-axes");  // enable brushing
+});
+</script>
