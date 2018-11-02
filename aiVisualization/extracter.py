@@ -95,7 +95,7 @@ saver = tf.train.Saver()
 saver.restore(sess, './myMNIST')
 
 
-csv_conv1, csv_pool1, csv_conv2, csv_pool2, csv_pool2_flat, csv_fc1, csv_yconv, csv_ymulConv = sess.run([h_conv1, h_pool1, h_conv2, h_pool2, h_pool2_flat, h_fc1_drop, y_conv, y_mulConv], feed_dict={x:mnist.test.images[5366:5367], keep_prob:1.0})
+csv_conv1, csv_pool1, csv_conv2, csv_pool2, csv_pool2_flat, csv_fc1, csv_yconv, csv_ymulConv = sess.run([h_conv1, h_pool1, h_conv2, h_pool2, h_pool2_flat, h_fc1_drop, y_conv, y_mulConv], feed_dict={x:mnist.test.images[1:2], keep_prob:1.0})
 
 f = open("./data/csv_pool1_1.csv", 'w')
 f.write("weight,img,1st\n")
@@ -116,6 +116,16 @@ for j in range(32):
 			f.write(str(curV) + "," + str(tmp2) + "," + str(tmp) + "\n")
 
 f.close()
+
+for j in range(32):
+	f = open("./data/csv_pool_matrix"+str(j)+".csv","w")
+	for k in range(14):
+		for l in range(14):
+			curV = (csv_pool1[0][k][l][j] - csv_pool1.min()) / (csv_pool1.max() - csv_pool1.min()) 
+			f.write(str(curV)+",")
+		f.write("\n")
+	f.close()
+			
 
 f = open("./data/csv_pool2_1.csv", 'w')
 f.write("weight,1st,2nd\n")
@@ -142,15 +152,18 @@ for j in range(64):
 			f.write(str(curV) + "," + str(tmp2) + "," + str(tmp) + "\n")
 
 f.close()
-'''
+
 f = open("./data/csv_fc_1.csv", 'w')
 f.write("weight,2nd,fc\n")
-f.write("0.46,3136,1024\n")
-f.write("0.46,0,0\n")
+f.write("0.71,3136,1024\n")
+f.write("0.71,0,0\n")
+filters = []
 for j in range(1024):
 	curV = (csv_fc1[0][j] - csv_fc1.min()) / (csv_fc1.max() - csv_fc1.min())
-	if curV < 0.6 : continue
-	print(j)
+	if (j % 100) == 0:
+		print(j)
+	if curV < 0.7 : continue
+	print("curV -- " + str(j))
 	maxV = 0
 	maxI = 0
 	for i in range(64):
@@ -163,23 +176,39 @@ for j in range(1024):
 		if (fV - maxV) > 0:
 			maxV = fV
 			maxI = i
-	print(maxI)
+	filters.append((curV, maxI))
 	for k in range(49):
 		f.write(str(curV) + "," + str(maxI * 7 * 7 + k) + "," + str(j) + "\n")
 f.close()
-'''
+print("3 -> 4")
+filters.sort(key=lambda element:element[0])
+names = open("./data/csv_heatmap_name1.txt", 'w')
+rangeL = 4
+if len(filters) < 3:
+	rangeL = len(filters) + 1
+for j in range (1, rangeL):
+	tI = -1 * j;
+	curF = filters[tI][1]
+	names.write(str(curF) + "\n")
+	f = open("./data/csv_heatmap1_" + str(j) + ".csv", 'w')
+	f.write("x,y,value")
+	for xs in range(7):
+		for ys in range(7):
+			vs = csv_pool2_flat[0][curF * 7 * 7 + xs * 7 + ys]
+			f.write(str(xs + 1) + "," + str(ys + 1) + "," + str(vs) + "\n")
+	f.close()
+names.close()
 f = open("./data/csv_result_1.csv", 'w')
 f.write("weight,fc,result\n")
-f.write("0.0011,1024,10\n")
-f.write("0.0011,0,0\n")
 for j in range(10):
 	curV = (csv_yconv[0][j] - csv_yconv.min()) / (csv_yconv.max() - csv_yconv.min())
-	if curV < 0.8 : continue
+	if curV < 0.9 : continue
 	lim = csv_ymulConv[0][j]
 	limit = lim / 1024.0
 	for k in range(1024) :
-		print(k)
-		curV2 = (csv_fc1[0][k] - csv_fc1.min()) / (csv_fc1.max() - csv_fc1.min())
+		if (k % 100) == 0:
+			print(k)
+		curV2 = csv_fc1[0][k]
 		curW = W_fc2[k][j].eval()
 		comV = curV2 * curW
 		if comV < limit : continue
