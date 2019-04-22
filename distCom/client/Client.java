@@ -25,27 +25,28 @@ public class Client{
 			GregorianCalendar fromDate = null;
 			GregorianCalendar toDate = null;
 			String schInfo;
+			String[] parts = new String[3];
 			while(true){
 				System.out.println("Calendar Service :: 1. Add, 2. Delete, 3. Retrieve, 4. Quit");
 				cmd = Integer.parseInt(scan.nextLine());
 				switch(cmd){
 					case 1:
-						System.out.println("start from ::");
-						System.out.print("year: ");
-						year = Integer.parseInt(scan.nextLine());
-						System.out.print("month: ");
-						month = Integer.parseInt(scan.nextLine());
-						System.out.print("day: ");
-						day = Integer.parseInt(scan.nextLine());
+						System.out.println("Start from ::");
+						System.out.print("format (yyyy/mm/dd): ");
+						schInfo = scan.nextLine();
+						parts = schInfo.split("/");
+						year = Integer.parseInt(parts[0]);
+						month = Integer.parseInt(parts[1]);
+						day = Integer.parseInt(parts[2]);
 						fromDate = new GregorianCalendar(year, month - 1, day);
 
 						System.out.println("Until ::");
-						System.out.print("year: ");
-						year = Integer.parseInt(scan.nextLine());
-						System.out.print("month: ");
-						month = Integer.parseInt(scan.nextLine());
-						System.out.print("day: ");
-						day = Integer.parseInt(scan.nextLine());
+						System.out.print("format (yyyy/mm/dd): ");
+						schInfo = scan.nextLine();
+						parts = schInfo.split("/");
+						year = Integer.parseInt(parts[0]);
+						month = Integer.parseInt(parts[1]);
+						day = Integer.parseInt(parts[2]);
 						toDate = new GregorianCalendar(year, month - 1, day);
 
 						System.out.print("Detail: ");
@@ -62,22 +63,22 @@ public class Client{
 						System.out.println("Delete Complete");
 						break;
 					case 3:
-						System.out.println("start from ::");
-						System.out.print("year: ");
-						year = Integer.parseInt(scan.nextLine());
-						System.out.print("month: ");
-						month = Integer.parseInt(scan.nextLine());
-						System.out.print("day: ");
-						day = Integer.parseInt(scan.nextLine());
+						System.out.println("Start from ::");
+						System.out.print("format (yyyy/mm/dd): ");
+						schInfo = scan.nextLine();
+						parts = schInfo.split("/");
+						year = Integer.parseInt(parts[0]);
+						month = Integer.parseInt(parts[1]);
+						day = Integer.parseInt(parts[2]);
 						fromDate = new GregorianCalendar(year, month - 1, day);
 
 						System.out.println("Until ::");
-						System.out.print("year: ");
-						year = Integer.parseInt(scan.nextLine());
-						System.out.print("month: ");
-						month = Integer.parseInt(scan.nextLine());
-						System.out.print("day: ");
-						day = Integer.parseInt(scan.nextLine());
+						System.out.print("format (yyyy/mm/dd): ");
+						schInfo = scan.nextLine();
+						parts = schInfo.split("/");
+						year = Integer.parseInt(parts[0]);
+						month = Integer.parseInt(parts[1]);
+						day = Integer.parseInt(parts[2]);
 						toDate = new GregorianCalendar(year, month - 1, day);
 
 						Vector<Triplet> schedules = aCalendarService.retrieveSchedule(fromDate, toDate);
